@@ -1,1 +1,5 @@
-heklllo
+# functions
+
+
+def greet_user():
+    print('Welcome to Class')
