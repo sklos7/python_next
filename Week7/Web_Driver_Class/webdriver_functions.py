@@ -1,15 +1,16 @@
 import time
-from selenium import webdriver
 
+from selenium import webdriver
+from selenium.common.exceptions import WebDriverException, NoSuchElementException
 #. Inializing a new browser
 driver = webdriver.Chrome()
 print("Opened the Chrome Browser")
 
 driver.implicitly_wait(10)
 
-def launch_website():
-    driver.get('https://letskodeit.teachable.com/p/practice')
-    print("opened the the letskode url")
+def launch_website(url):
+    driver.get(url)
+    print("opened the browser and the website")
     time.sleep(1)
 
 #1.find all buttons, working with this elements
@@ -26,7 +27,7 @@ def open_tab_by_link_text():
     return open_tab
 
 def web_driver_properties():
-    print("current url: ", driver.current_urlr)
+    print("current url: ", driver.current_url)
     print("current title: ", driver.title)
     print("current win_handle: ", driver.current_window_handle)
     print("current name: ", driver.name)
@@ -84,3 +85,38 @@ def web_driver_properties_switch_to_tab():
 def close_browser():
     driver.quit()
     print("closed the browser")
+
+def refresg_browser():
+    print("Browser os being refreshed...")
+    driver.refresh()
+
+def go_back_to_previous_page():
+    print("going back to previous page...")
+    driver.back()
+
+def go_next_page():
+    print("going to next page...")
+    driver.forward()
+
+def enter_text_by_xpath(xpath, some_text):
+
+    try:
+        print(f"xpath provided: {xpath}")
+        element = driver.find_element_by_xpath(xpath)
+        print(f"entering the following text: {some_text}")
+        element.send_keys(some_text)
+    except NoSuchElementException as err:
+        print(f"Entering Text by following xpath: {xpath}")
+        print(err)
+    time.sleep(3)
+
+def click_element_by_xpath(xpath):
+
+    try:
+        print(f"xpath provided: {xpath}")
+        element = driver.find_element_by_xpath(xpath)
+        print("Clicking the element")
+        element.click()
+    except WebDriverException as err:
+        print(f"Check the element by following xpath: {xpath}")
+        print(err)
